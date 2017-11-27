@@ -138,4 +138,5 @@ RUN apk add --no-cache curl && \
         curl -L -o /protobuf/github.com/gogo/protobuf/gogoproto/gogo.proto https://raw.githubusercontent.com/gogo/protobuf/master/gogoproto/gogo.proto && \
     apk del curl
 
-ENTRYPOINT ["/usr/bin/protoc", "-I/protobuf"]
+COPY "protoc-switch.sh" "/usr/local/bin/protoc-switch.sh"
+ENTRYPOINT ["/usr/local/bin/protoc-switch.sh"]
