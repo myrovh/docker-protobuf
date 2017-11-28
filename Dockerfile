@@ -3,6 +3,7 @@ RUN apk add --no-cache build-base curl automake autoconf libtool git zlib-dev
 
 ENV GRPC_VERSION=1.6.1 \
     GRPC_JAVA_VERSION=1.6.1 \
+    GRPC_TOOLS_VERSION=1.7.2 \
     PROTOBUF_VERSION=3.4.1 \
     PROTOBUF_C_VERSION=1.3.0 \
     PROTOC_GEN_DOC_VERSION=1.0.0-rc \
@@ -137,6 +138,9 @@ RUN apk add --no-cache curl && \
     mkdir -p /protobuf/github.com/gogo/protobuf/gogoproto && \
         curl -L -o /protobuf/github.com/gogo/protobuf/gogoproto/gogo.proto https://raw.githubusercontent.com/gogo/protobuf/master/gogoproto/gogo.proto && \
     apk del curl
+
+RUN apk add --no-cache ruby && \
+    gem install grpc-tools -v ${GRPC_TOOLS_VERSION}}
 
 COPY "protoc-switch.sh" "/usr/local/bin/protoc-switch.sh"
 ENTRYPOINT ["/usr/local/bin/protoc-switch.sh"]
